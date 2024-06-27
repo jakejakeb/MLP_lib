@@ -293,7 +293,7 @@ namespace MLP
     public:
         std::string WB_path = "../data/w_b.txt";
         std::string traindata_importPath = "../data/inputs.txt";
-        netlib::NeuralNet nn;
+        MLP::NeuralNet nn;
         Controller(std::vector<size_t> topology, float learningRate = 0.1f)
         : nn(topology, learningRate)
         {
@@ -303,12 +303,12 @@ namespace MLP
         }
 
 
-        void testNetwork(std::vector<float> testData, netlib::NeuralNet& nn) {
+        void testNetwork(std::vector<float> testData, MLP::NeuralNet& nn) {
             try {
                 nn.feedForword(testData);
                 std::vector<float> preds = nn.getPredictions();
                 std::cout << "\nPredictions: ";
-                preds = netlib::round(preds);
+                preds = MLP::round(preds);
                 for (float f : preds) std::cout << f << " ";
                 std::cout << std::endl;
             } catch (const std::exception& e) {
@@ -316,14 +316,14 @@ namespace MLP
             }
         }
 
-        void trainNetwork(netlib::NeuralNet &nn, const std::vector<std::vector<float>> &fileInputs,
+        void trainNetwork(MLP::NeuralNet &nn, const std::vector<std::vector<float>> &fileInputs,
                   const std::vector<std::vector<float>> &targetOutputs, size_t iterations, 
                   const std::string &inputFile) 
         {
             auto start = std::chrono::high_resolution_clock::now();
             for (size_t i = 0; i < iterations; i++) 
             {
-                size_t index = rand() % netlib::getFileSize(inputFile);
+                size_t index = rand() % MLP::getFileSize(inputFile);
                 nn.feedForword(fileInputs[index]);
                 nn.backPropagate(targetOutputs[index]);
 
