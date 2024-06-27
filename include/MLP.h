@@ -1,6 +1,6 @@
 #pragma once
 
-#include <matrix.h>
+#include <../Matrix_lib/include/matrix.h>
 #include <iostream>
 #include <fstream>
 #include <sstream>
